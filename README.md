@@ -18,17 +18,17 @@
 
 or
 
-  JettyServletTester.runServlet(MyServlet.class, (uri) -> {
-      // your test code
-    }
-  });
+    JettyServletTester.runServlet(MyServlet.class, (uri) -> {
+          // your test code
+        }
+    );
 
 or
 
-  JettyServletTester.runServlet(new MyServlet(), (uri) -> {
-      // your test code
-    }
-  });
+    JettyServletTester.runServlet(new MyServlet(), (uri) -> {
+          // your test code
+        }
+    );
 
 ## DESCRIPTION
 

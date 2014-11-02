@@ -1,5 +1,7 @@
 # servlettester-jetty
 
+[![Build Status](https://travis-ci.org/tokuhirom/servlettester-jetty.svg)](https://travis-ci.org/tokuhirom/servlettester-jetty)
+
 ## SYNOPSIS
 
 	JettyServletTester.runServlet((req, resp) -> {

@@ -1,6 +1,7 @@
 # servlettester-jetty
 
 [![Build Status](https://travis-ci.org/tokuhirom/servlettester-jetty.svg)](https://travis-ci.org/tokuhirom/servlettester-jetty)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.geso/servlettester-jetty/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/me.geso/servlettester-jetty)
 
 ## SYNOPSIS
 

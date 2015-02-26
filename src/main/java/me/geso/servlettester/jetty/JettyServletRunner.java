@@ -9,23 +9,37 @@ import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import lombok.NonNull;
+
 public class JettyServletRunner implements AutoCloseable {
 	private final URI baseURI;
 	private final Server server;
 
 	public JettyServletRunner(Class<? extends Servlet> servletClass) throws Exception {
-		this(new ServletHolder(servletClass));
+		this(servletClass, "/");
+	}
+
+	public JettyServletRunner(Class<? extends Servlet> servletClass, String contextPath) throws Exception {
+		this(new ServletHolder(servletClass), contextPath);
 	}
 
 	public JettyServletRunner(Servlet servlet) throws Exception {
-		this(new ServletHolder(servlet));
+		this(servlet, "/");
 	}
 
-	public JettyServletRunner(ServletHolder servletHolder) throws Exception {
+	public JettyServletRunner(Servlet servlet, String contextPath) throws Exception {
+		this(new ServletHolder(servlet), contextPath);
+	}
+
+	public JettyServletRunner(@NonNull ServletHolder servletHolder) throws Exception {
+		this(servletHolder, "/");
+	}
+
+	public JettyServletRunner(@NonNull ServletHolder servletHolder, @NonNull String contextPath) throws Exception {
 		this.server = new Server(0);
 		ServletContextHandler context = new ServletContextHandler(
 			server,
-			"/",
+			contextPath,
 			ServletContextHandler.SESSIONS
 				);
 		context.addServlet(servletHolder, "/*");

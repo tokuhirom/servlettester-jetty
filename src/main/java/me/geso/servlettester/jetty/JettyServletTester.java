@@ -28,8 +28,16 @@ public class JettyServletTester {
 		runServlet(new ServletHolder(servletClass), body);
 	}
 
+	public static void runServlet(Class<? extends Servlet> servletClass, String contextPath, URIConsumer body) throws Exception {
+		runServlet(new ServletHolder(servletClass), contextPath, body);
+	}
+
 	public static void runServlet(Servlet servlet, URIConsumer body) throws Exception {
 		runServlet(new ServletHolder(servlet), body);
+	}
+
+	public static void runServlet(Servlet servlet, String contextPath, URIConsumer body) throws Exception {
+		runServlet(new ServletHolder(servlet), contextPath, body);
 	}
 
 	public static void runServlet(ServletHolder servletHolder, URIConsumer body) throws Exception {
@@ -38,7 +46,13 @@ public class JettyServletTester {
 		}
 	}
 
-	public static void runServlet(ServletCallback callback, URIConsumer body) throws Exception {
+	public static void runServlet(ServletHolder servletHolder, String contextPath, URIConsumer body) throws Exception {
+		try (JettyServletRunner jettyServletRunner = new JettyServletRunner(servletHolder, contextPath)) {
+			body.accept(jettyServletRunner.getBaseURI());
+		}
+	}
+
+	public static void runServlet(ServletCallback callback, String contextPath, URIConsumer body) throws Exception {
 		ServletHolder servletHolder = new ServletHolder(new HttpServlet() {
 			private static final long serialVersionUID = 1L;
 
@@ -48,7 +62,11 @@ public class JettyServletTester {
 				callback.service(req, resp);
 			}
 		});
-		runServlet(servletHolder, body);
+		runServlet(servletHolder, contextPath, body);
+	}
+
+	public static void runServlet(ServletCallback callback, URIConsumer body) throws Exception {
+		runServlet(callback, "/", body);
 	}
 
 }
